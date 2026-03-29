@@ -11,6 +11,9 @@ const { State } = require("./models/models");
 const app = express();
 const server = http.createServer(app);
 
+const cors = require("cors");
+app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 
 // =====================
