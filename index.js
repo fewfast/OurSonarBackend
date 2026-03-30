@@ -82,6 +82,7 @@ mqttClient.on("connect", () => {
 
 // cache status ล่าสุดจาก ESP32
 let latestStatus = null;
+let latestReport = null;
 
 mqttClient.on("message", async (topic, message) => {
   const raw = message.toString();
@@ -123,6 +124,7 @@ mqttClient.on("message", async (topic, message) => {
   }
 
   if (topic === `${BASE_TOPIC}/report`) {
+    latestReport = data;
     io.emit("report", data);
     await saveReportToDB(data);
   }
@@ -151,6 +153,7 @@ app.use(
   (req, res, next) => {
     req.mqttClient = mqttClient;
     req.latestStatus = latestStatus;
+    req.latestReport = latestReport;
     next();
   },
   apiRoutes,

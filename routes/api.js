@@ -7,6 +7,7 @@ const {
   setState,
   getReport,
   saveReport,
+  getLatestReport,
 } = require("../controllers/apiController");
 
 // route
@@ -15,5 +16,5 @@ router.get("/status", getStatus); // ดู status จาก esp32
 router.patch("/state", setState); // สั่งการทำงาน esp32
 router.get("/report", getReport); // ดึง list report จาก MongoDB
 router.post("/report/save", saveReport); // ESP32 ส่ง report ผ่าน MQTT แล้ว save ลง MongoDB
-
+router.get("/report/latest", getLatestReport);
 module.exports = router;

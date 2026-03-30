@@ -83,3 +83,12 @@ exports.saveReport = async (req, res) => {
     res.status(500).json({ error: "บันทึก report ไม่สำเร็จ" });
   }
 };
+
+// GET /report/latest — ดึง report ล่าสุดจาก MongoDB
+exports.getLatestReport = (req, res) => {
+  const latest = req.latestReport;
+  if (!latest) {
+    return res.status(404).json({ error: "ยังไม่มี report จาก ESP32" });
+  }
+  res.json({ success: true, data: latest });
+};
